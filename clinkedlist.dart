@@ -67,6 +67,20 @@ class LinkedList<E> {
     }
     return true;
   }
+  List<LinkedList> split(int n){
+    if(this.length%n != 0) return null;
+    _Node iteratorNode = this.tail.next;
+    List<LinkedList<int>> result = List<LinkedList<int>>(n);
+    for(var i =0 ;i<n ; i++){
+      result[i] = new LinkedList<int>();
+    }
+    for(var i =0 ,j =0 ; i<length ; j=(++i)%(length/n)==0?j+1:j){
+    /*print("value of i = $i\nvalue of j = $j");*/
+      result[j].addLast(iteratorNode.data);
+      iteratorNode=iteratorNode.next;
+    }
+    return result;
+  }
 }
 
 main(List<String> args) {
@@ -85,10 +99,21 @@ main(List<String> args) {
   l.addFirst(655);
   l.addLast(66);
   l.addLast(5);
+  l.addLast(5);
+  l.addLast(5);
   l.addFirst(666);
   l.removeFirst();
   l.removeFirst();
   print(ll.toString());
   print(l.toString());
-  print(ll.containTheSameSequence(l));
+  print(l.length);
+  List<LinkedList> resulting = l.split(3);
+  resulting.forEach((x){
+    print("${x.toString()}");
+    print("---------");
+  });
+/*  for(var x = 0, y = 0 ; x<4 ; y=(++x)%2==0?y+1:y){
+    print("value of x = $x\nvalue of y = $y");
+  }
+*/
 }
